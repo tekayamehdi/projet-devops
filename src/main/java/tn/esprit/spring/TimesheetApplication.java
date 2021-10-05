@@ -1,4 +1,5 @@
 package tn.esprit.spring;
+import org.apache.log4j.Logger;  
 
 import java.util.EnumSet;
 
@@ -19,7 +20,13 @@ import tn.esprit.spring.config.LoginFilter;
 @EnableAutoConfiguration
 public class TimesheetApplication {
 
-	public static void main(String[] args) {SpringApplication.run(TimesheetApplication.class, args);}
+	   static Logger log = Logger.getLogger(TimesheetApplication.class.getName());  
+
+	
+	public static void main(String[] args) {
+		   log.debug("Hello this is a debug message");  
+		      log.info("Hello this is an info message");  
+		SpringApplication.run(TimesheetApplication.class, args);}
 
 	@Bean
 	public ServletRegistrationBean servletRegistrationBean() {
