@@ -14,12 +14,16 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
 import tn.esprit.spring.config.LoginFilter;
-
+import tn.esprit.spring.services.*;
 @SpringBootApplication
 @EnableAutoConfiguration
 public class TimesheetApplication {
 
-	public static void main(String[] args) {SpringApplication.run(TimesheetApplication.class, args);}
+	public static void main(String[] args) {
+		SpringApplication.run(TimesheetApplication.class, args);
+			EmployeServiceImpl esi = new EmployeServiceImpl();
+			esi.getAllEmployes();
+		}
 
 	@Bean
 	public ServletRegistrationBean servletRegistrationBean() {
@@ -42,5 +46,5 @@ public class TimesheetApplication {
 		registration.setFilter(new LoginFilter());
 		return registration;
 	}
- 
+
 }

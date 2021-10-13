@@ -22,8 +22,11 @@ import tn.esprit.spring.services.IEmployeService;
 import tn.esprit.spring.services.IEntrepriseService;
 import tn.esprit.spring.services.ITimesheetService;
 
+
+
 @RestController
 public class RestControlEmploye {
+
 
 	@Autowired
 	IEmployeService iemployeservice;
@@ -40,6 +43,7 @@ public class RestControlEmploye {
 	@ResponseBody
 	public Employe ajouterEmploye(@RequestBody Employe employe)
 	{
+	
 		iemployeservice.addOrUpdateEmploye(employe);
 		return employe;
 	}
@@ -87,6 +91,7 @@ public class RestControlEmploye {
    @GetMapping(value = "getEmployePrenomById/{idemp}")
    @ResponseBody
    public String getEmployePrenomById(@PathVariable("idemp")int employeId) {
+
 		return iemployeservice.getEmployePrenomById(employeId);
 	}
 
@@ -102,6 +107,7 @@ public class RestControlEmploye {
     @DeleteMapping("/deleteContratById/{idcontrat}") 
 	@ResponseBody
 	public void deleteContratById(@PathVariable("idcontrat")int contratId) {
+
 		iemployeservice.deleteContratById(contratId);
 	}
 
@@ -172,6 +178,7 @@ public class RestControlEmploye {
 	@GetMapping(value = "/getAllEmployes")
     @ResponseBody
 	public List<Employe> getAllEmployes() {
+	
 		
 		return iemployeservice.getAllEmployes();
 	}

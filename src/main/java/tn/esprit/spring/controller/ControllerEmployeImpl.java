@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.Pattern;
 
+import org.apache.log4j.Logger;
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,13 @@ import tn.esprit.spring.entities.Role;
 import tn.esprit.spring.entities.Timesheet;
 import tn.esprit.spring.services.IEmployeService;
 
-
+import org.apache.log4j.Logger;
 @Scope(value = "session")
 @Controller(value = "employeController")
 @ELBeanName(value = "employeController")
 @Join(path = "/", to = "/login.jsf")
 public class ControllerEmployeImpl  {
+	private static final Logger l = Logger.getLogger(ControllerEmployeImpl.class);
 
 	@Autowired
 	IEmployeService employeService;
@@ -289,6 +291,17 @@ public class ControllerEmployeImpl  {
 	}
 
 	public List<Employe> getEmployes() {
+		try {
+
+			l.info("In getAllPrducts() : ");
+			l.debug("Je vais lancer la divsion.");
+			int i = 1/0;
+			l.debug("Je viens de lancer la divsion. " + i);
+			l.debug("Je viens de finir l'opération X.");
+			l.info("Out getAllPrducts() without errors.");
+			}
+			catch (Exception e) { l.error("Erreur dans getAllEmployes() : " + e); }
+			
 		employes = employeService.getAllEmployes(); 
 		return employes;
 	}
