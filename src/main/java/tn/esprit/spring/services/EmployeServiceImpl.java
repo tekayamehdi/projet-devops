@@ -113,6 +113,7 @@ public class EmployeServiceImpl implements IEmployeService {
 	{
 		Departement dep = deptRepoistory.findById(depId).get();
 
+
 		int employeNb = dep.getEmployes().size();
 		for(int index = 0; index < employeNb; index++){
 			if(dep.getEmployes().get(index).getId() == employeId){
@@ -120,26 +121,64 @@ public class EmployeServiceImpl implements IEmployeService {
 				break;//a revoir
 			}
 		}
+		try {
+
+			l.info("In authenticate : ");
+			l.debug("Je vais lancer la recherche du depManaged en fonction du depId:"+depId);
+			l.debug("Je vais lancer la recherche du employeManagedEntity en fonction du employeId"+employeId);
+			l.debug("Je viens de finir la recherche.");
+			l.debug("je viens de commencer l'desaffectation les employe au departement");
+			l.info("Out affecterEmployeADepartement  without errors.");
+			}
+			catch (Exception e) { l.error("Erreur dans desaffecterEmployeADepartement : " + e);}
 	} 
 	
 	// Tablesapce (espace disque) 
 
 	public int ajouterContrat(Contrat contrat) {
+	
 		contratRepoistory.save(contrat);
+		try {
+
+			l.info("In authenticate : ");
+			l.debug("Je vais lancer l'ajout du contrat:");
+			l.debug("je viens de finir l'ajout du contrat");
+			l.info("Out ajouterContrat  without errors.");
+			}
+			catch (Exception e) { l.error("Erreur dans ajouterContrat : " + e);}
 		return contrat.getReference();
+		
 	}
 
 	public void affecterContratAEmploye(int contratId, int employeId) {
 		Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
 		Employe employeManagedEntity = employeRepository.findById(employeId).get();
-
 		contratManagedEntity.setEmploye(employeManagedEntity);
 		contratRepoistory.save(contratManagedEntity);
+		try {
+
+			l.info("In authenticate : ");
+			l.debug("Je vais lancer la recherche du contrat en fonction du contratID:"+contratId);
+			l.debug("Je vais lancer la recherche du employeManagedEntity en fonction du employeId"+employeId);
+			l.debug("Je viens de finir la recherche.");
+			l.debug("je viens de commencer l'affectation les contrat au employe");
+			l.info("Out affecterContratAEmploye without errors.");
+			}
+			catch (Exception e) { l.error("Erreur dans affecterContratAEmploye : " + e);}
+		
 
 	}
 
 	public String getEmployePrenomById(int employeId) {
 		Employe employeManagedEntity = employeRepository.findById(employeId).get();
+		try {
+
+			l.info("In authenticate : ");
+			l.debug("Je vais lancer l'ajout du contrat:");
+			l.debug("je viens de finir l'ajout du contrat");
+			l.info("Out ajouterContrat  without errors.");
+			}
+			catch (Exception e) { l.error("Erreur dans ajouterContrat : " + e);}
 		return employeManagedEntity.getPrenom();
 	}
 	 
@@ -155,19 +194,47 @@ public class EmployeServiceImpl implements IEmployeService {
 		}
 
 		employeRepository.delete(employe);
+		try {
+
+			l.debug("Je vais lancer la recherche de l'employe en fn de l'id:"+employeId);
+			l.debug("Je vais lancer l'supperession de l'employe");
+			l.debug("je viens de finir la suppression");
+			l.info("Out deleteEmployeById  without errors.");
+			}
+			catch (Exception e) { l.error("Erreur dans deleteEmployeById : " + e);}
 	}
 
 	public void deleteContratById(int contratId) {
 		Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
 		contratRepoistory.delete(contratManagedEntity);
+		try {
 
+			l.debug("Je vais lancer la recherche de l'employe en fn de l'id:"+contratId);
+			l.debug("Je vais lancer l'supperession du contrat");
+			l.debug("je viens de finir la suppression");
+			l.info("Out deleteContratById  without errors.");
+			}
+			catch (Exception e) { l.error("Erreur dans deleteContratById: " + e);}
 	}
 
 	public int getNombreEmployeJPQL() {
+		try {
+			l.info("in getNombreEmployeJPQL");
+			l.debug("Je vais lancer l'affichage du nombre d'employe :");
+			l.info("Out getNombreEmployeJPQL  without errors.");
+			}
+			catch (Exception e) { l.error("Erreur dans getNombreEmployeJPQL: " + e);}
 		return employeRepository.countemp();
+		
 	}
 
 	public List<String> getAllEmployeNamesJPQL() {
+		try {
+			l.info("in getNombreEmployeJPQL");
+			l.debug("Je vais lancer l'affichage du nombre d'employe :");
+			l.info("Out getNombreEmployeJPQL  without errors.");
+			}
+			catch (Exception e) { l.error("Erreur dans getNombreEmployeJPQL: " + e);}
 		return employeRepository.employeNames();
 
 	}
