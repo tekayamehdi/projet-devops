@@ -9,10 +9,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>tn.esprit.spring</groupId>
-	<artifactId>timesheet</artifactId>
+	<artifactId>projet-devops</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>timesheet</name>
-	<description>timesheet</description>
+	<name>projet-devops</name>
+	<description>projet-devops</description>
 
 	<properties>
 		<java.version>1.8</java.version>
