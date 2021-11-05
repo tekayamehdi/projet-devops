@@ -9,18 +9,23 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>tn.esprit.spring</groupId>
-	<artifactId>timesheet</artifactId>
-	<version>1.0</version>
-	<name>timesheet</name>
-	<description>timesheet</description>
+	<artifactId>projet-devops</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>projet-devops</name>
+	<description>projet-devops</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
-
+	
 	<dependencies>
-
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -54,11 +59,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
-    		<groupId>log4j</groupId>
-   			<artifactId>log4j</artifactId>
-    		<version>1.2.17</version>
-		</dependency>
+
 		<!-- JSF -->
 		<dependency>
 			<groupId>org.apache.myfaces.core</groupId>
@@ -97,18 +98,13 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.16</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>4.12</version>
-			<scope>test</scope>
-
-</dependency>
+			</dependency>
 		<!-- JSF -->
 
 	</dependencies>
+
+
+
 	<build>
 		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
 		<plugins>
@@ -118,15 +114,17 @@
 			</plugin>
 		</plugins>
 	</build>
- <distributionManagement>
-    <snapshotRepository>
-      <id>nexus-snapshots</id>
-      <url>http://localhost:8081/repository/maven-snapshots/</url>
-    </snapshotRepository>
+<distributionManagement>
     <repository>
-      <id>nexus-releases</id>
-      <url>http://localhost:8081/repository/maven-releases/</url>
+      <id>nexus</id>
+      <name>Releases</name>
+      <url>http://localhost:8081/repository/maven-releases</url>
     </repository>
+    <snapshotRepository>
+      <id>nexus</id>
+      <name>Snapshot</name>
+      <url>http://localhost:8081/repository/maven-snapshots</url>
+    </snapshotRepository>
   </distributionManagement>
 
 </project>
