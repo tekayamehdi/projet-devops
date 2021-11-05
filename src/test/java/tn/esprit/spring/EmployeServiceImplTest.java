@@ -8,8 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.junit.Before;
-import org.junit.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import tn.esprit.spring.services.EmployeServiceImpl;
@@ -21,7 +20,7 @@ public class EmployeServiceImplTest {
 	
 	private Employe employe;
 	private Contrat contrat;
-		@Before
+
 		public void init() {
 			//set employe
 			boolean actif = true;
@@ -53,11 +52,11 @@ public class EmployeServiceImplTest {
 		private EmployeServiceImpl employeService = new EmployeServiceImpl();
 
 
-		@Test
+
 		public void addOrUpdateEmployeTest() {
 		employeService.addOrUpdateEmploye(employe);
 		}
-		@Test
+		
 		public void getAllEmployesTest() {
 			employeService.getAllEmployes();
 		}
