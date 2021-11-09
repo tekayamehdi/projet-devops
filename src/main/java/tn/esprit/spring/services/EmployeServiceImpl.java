@@ -25,6 +25,8 @@ import tn.esprit.spring.repository.TimesheetRepository;
 public class EmployeServiceImpl implements IEmployeService {
 	private static final Logger l = Logger.getLogger(ControllerEmployeImpl.class);
 	private static final Object Vauth = "In authenticate :";
+	private static final Object Vrech ="Je vais lancer la recherche du employeManagedEntity en fonction du employeId";
+	private static final Object Vrech2 ="Je viens de finir la recherche.";
 	@Autowired
 	EmployeRepository employeRepository;
 	@Autowired
@@ -88,6 +90,7 @@ public class EmployeServiceImpl implements IEmployeService {
 
 	}
 
+	@Autowired
 	@Transactional	
 	public void affecterEmployeADepartement(int employeId, int depId) {
 		Departement depManagedEntity = deptRepoistory.findById(depId).get();
@@ -107,8 +110,8 @@ public class EmployeServiceImpl implements IEmployeService {
 
 			l.info(Vauth);
 			l.debug("Je vais lancer la recherche du depManaged en fonction du depId:"+depId);
-			l.debug("Je vais lancer la recherche du employeManagedEntity en fonction du employeId"+employeId);
-			l.debug("Je viens de finir la recherche.");
+			l.debug(Vrech+""+employeId);
+			l.debug(Vrech2);
 			l.debug("je viens de commencer l'affectation les employe au departement");
 			l.info("Out affecterEmployeADepartement  without errors.");
 			}
@@ -134,8 +137,8 @@ public class EmployeServiceImpl implements IEmployeService {
 
 			l.info(Vauth);
 			l.debug("Je vais lancer la recherche du depManaged en fonction du depId:"+depId);
-			l.debug("Je vais lancer la recherche du employeManagedEntity en fonction du employeId"+employeId);
-			l.debug("Je viens de finir la recherche.");
+			l.debug(Vrech+""+employeId);
+			l.debug(Vrech2);
 			l.debug("je viens de commencer l'desaffectation les employe au departement");
 			l.info("Out affecterEmployeADepartement  without errors.");
 			}
@@ -168,8 +171,8 @@ public class EmployeServiceImpl implements IEmployeService {
 
 			l.info(Vauth);
 			l.debug("Je vais lancer la recherche du contrat en fonction du contratID:"+contratId);
-			l.debug("Je vais lancer la recherche du employeManagedEntity en fonction du employeId"+employeId);
-			l.debug("Je viens de finir la recherche.");
+			l.debug(Vrech+""+employeId);
+			l.debug(Vrech2);
 			l.debug("je viens de commencer l'affectation les contrat au employe");
 			l.info("Out affecterContratAEmploye without errors.");
 			}
