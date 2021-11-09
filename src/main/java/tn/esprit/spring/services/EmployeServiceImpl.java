@@ -73,7 +73,10 @@ public class EmployeServiceImpl implements IEmployeService {
 			l.info("Out authenticate() without errors.");
 			}
 			catch (Exception e) { l.error("Erreur dans authenticate() : " + e);}
-		Employe employe = employeRepository.findById(employeId).orElse(null);
+		Employe employe = employeRepository.findById(employeId).orElseGet(null);
+		if (employe == null) {
+			System.out.println("no employe");
+		}else
 		employe.setEmail(email);
 		employeRepository.save(employe);
 
