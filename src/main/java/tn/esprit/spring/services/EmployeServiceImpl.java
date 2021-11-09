@@ -73,7 +73,7 @@ public class EmployeServiceImpl implements IEmployeService {
 			l.info("Out authenticate() without errors.");
 			}
 			catch (Exception e) { l.error("Erreur dans authenticate() : " + e);}
-		Employe employe = employeRepository.findById(employeId).get();
+		Employe employe = employeRepository.findById(employeId).orElse(null);
 		employe.setEmail(email);
 		employeRepository.save(employe);
 
@@ -82,7 +82,7 @@ public class EmployeServiceImpl implements IEmployeService {
 	@Transactional	
 	public void affecterEmployeADepartement(int employeId, int depId) {
 		Departement depManagedEntity = deptRepoistory.findById(depId).get();
-		Employe employeManagedEntity = employeRepository.findById(employeId).get();
+		Employe employeManagedEntity = employeRepository.findById(employeId).orElse(null);
 	
 
 		if(depManagedEntity.getEmployes() == null){
@@ -151,8 +151,8 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 
 	public void affecterContratAEmploye(int contratId, int employeId) {
-		Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
-		Employe employeManagedEntity = employeRepository.findById(employeId).get();
+		Contrat contratManagedEntity = contratRepoistory.findById(contratId).orElse(null);
+		Employe employeManagedEntity = employeRepository.findById(employeId).orElse(null);
 		contratManagedEntity.setEmploye(employeManagedEntity);
 		contratRepoistory.save(contratManagedEntity);
 		try {
@@ -184,7 +184,7 @@ public class EmployeServiceImpl implements IEmployeService {
 	 
 	public void deleteEmployeById(int employeId)
 	{
-		Employe employe = employeRepository.findById(employeId).get();
+		Employe employe = employeRepository.findById(employeId).orElse(null);
 
 		//Desaffecter l'employe de tous les departements
 		//c'est le bout master qui permet de mettre a jour
