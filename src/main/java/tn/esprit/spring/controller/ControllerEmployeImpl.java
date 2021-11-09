@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+
 import org.apache.log4j.Logger;
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
@@ -21,17 +22,18 @@ import tn.esprit.spring.entities.Role;
 import tn.esprit.spring.entities.Timesheet;
 import tn.esprit.spring.services.IEmployeService;
 
+
 @Scope(value = "session")
 @Controller(value = "employeController")
 @ELBeanName(value = "employeController")
 @Join(path = "/", to = "/login.jsf")
 public class ControllerEmployeImpl  {
 	private static final Logger l = Logger.getLogger(ControllerEmployeImpl.class);
-
-	private static final String Redirect = "/login.xhtml?faces-redirect=true";
-
+	private static final String A = "/login.xhtml?faces-redirect=true";
+	
 	@Autowired
 	IEmployeService employeService;
+
 	private String login; 
 	private String password; 
 	private Boolean loggedIn;
@@ -72,13 +74,13 @@ public class ControllerEmployeImpl  {
 	{
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 	
-	return Redirect;
+	return A;
 	}
 
 
 	public String addEmploye() {
 
-		if (authenticatedUser==null || !loggedIn) return Redirect;
+		if (authenticatedUser==null || !loggedIn) return A;
 
 		employeService.addOrUpdateEmploye(new Employe(nom, prenom, email, password, actif, role)); 
 		return "null"; 
@@ -86,7 +88,7 @@ public class ControllerEmployeImpl  {
 
 	public String removeEmploye(int employeId) {
 		String navigateTo = "null";
-		if (authenticatedUser==null || !loggedIn) return Redirect;
+		if (authenticatedUser==null || !loggedIn) return A;
 
 		employeService.deleteEmployeById(employeId);
 		return navigateTo; 
@@ -95,7 +97,7 @@ public class ControllerEmployeImpl  {
 	public String displayEmploye(Employe empl) 
 	{
 		String navigateTo = "null";
-		if (authenticatedUser==null || !loggedIn) return Redirect;
+		if (authenticatedUser==null || !loggedIn) return A;
 
 
 		this.setPrenom(empl.getPrenom());
@@ -114,7 +116,7 @@ public class ControllerEmployeImpl  {
 	{ 
 		String navigateTo = "null";
 		
-		if (authenticatedUser==null || !loggedIn) return Redirect;
+		if (authenticatedUser==null || !loggedIn) return A;
 
 		employeService.addOrUpdateEmploye(new Employe(employeIdToBeUpdated, nom, prenom, email, password, actif, role)); 
 
@@ -294,7 +296,7 @@ public class ControllerEmployeImpl  {
 
 			l.info("In getAllPrducts() : ");
 			l.debug("Je vais lancer la divsion.");
-			int i = 1/0;
+			int i = 0/1;
 			l.debug("Je viens de lancer la divsion. " + i);
 			l.debug("Je viens de finir l'opération X.");
 			l.info("Out getAllPrducts() without errors.");

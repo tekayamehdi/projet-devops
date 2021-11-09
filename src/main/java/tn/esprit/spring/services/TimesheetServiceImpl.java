@@ -1,12 +1,12 @@
 package tn.esprit.spring.services;
 
-import java.text.SimpleDateFormat; 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import tn.esprit.spring.entities.Departement;
 import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Mission;
@@ -18,12 +18,9 @@ import tn.esprit.spring.repository.EmployeRepository;
 import tn.esprit.spring.repository.MissionRepository;
 import tn.esprit.spring.repository.TimesheetRepository;
 
-import org.apache.log4j.Logger;
-
 @Service
 public class TimesheetServiceImpl implements ITimesheetService {
 	private static final Logger l = Logger.getLogger(TimesheetServiceImpl.class);
-
 
 	@Autowired
 	MissionRepository missionRepository;
@@ -41,7 +38,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
     
 	public void affecterMissionADepartement(int missionId, int depId) {
 		Mission mission = missionRepository.findById(missionId).get();
-		Departement dep = deptRepoistory.findById(depId).orElse(null);
+		Departement dep = deptRepoistory.findById(depId).get();
 		mission.setDepartement(dep);
 		missionRepository.save(mission);
 		
@@ -63,20 +60,12 @@ public class TimesheetServiceImpl implements ITimesheetService {
 
 	
 	public void validerTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin, int validateurId) {
-		try{
-
-			l.info("In validerTimesheet : ");
-			l.debug("Je vais lancer la validation");
-
-			l.debug("Je viens de finir la validation.");
-			l.info("Out validerTimesheet() without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans validerTimesheet() : " + e);}
+	l.info("In valider Timesheet");
 		Employe validateur = employeRepository.findById(validateurId).get();
 		Mission mission = missionRepository.findById(missionId).get();
 		//verifier s'il est un chef de departement (interet des enum)
 		if(!validateur.getRole().equals(Role.CHEF_DEPARTEMENT)){
-			l.error("l'employe doit etre chef de departement pour valider une feuille de temps !");
+			l.info("l'employe doit etre chef de departement pour valider une feuille de temps !");
 			return;
 		}
 		//verifier s'il est le chef de departement de la mission en question
@@ -88,7 +77,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 			}
 		}
 		if(!chefDeLaMission){
-			l.error("l'employe doit etre chef de departement de la mission en question");
+			l.info("l'employe doit etre chef de departement de la mission en question");
 			return;
 		}
 //
