@@ -115,6 +115,7 @@ public class EmployeServiceImpl implements IEmployeService {
 
 
 		int employeNb = dep.getEmployes().size();
+
 		for(int index = 0; index < employeNb; index++){
 			if(dep.getEmployes().get(index).getId() == employeId){
 				dep.getEmployes().remove(index);

@@ -37,7 +37,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 				//Rappel : la classe qui contient mappedBy represente le bout Slave
 				//Rappel : Dans une relation oneToMany le mappedBy doit etre du cote one.
 				Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId).get();
-				Departement depManagedEntity = deptRepoistory.findById(depId).get();
+				Departement depManagedEntity = deptRepoistory.findById(depId).orElse(null);
 				
 				depManagedEntity.setEntreprise(entrepriseManagedEntity);
 				deptRepoistory.save(depManagedEntity);
