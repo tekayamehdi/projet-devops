@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.validation.constraints.Pattern;
+
 
 import org.apache.log4j.Logger;
 import org.ocpsoft.rewrite.annotation.Join;
@@ -22,14 +22,15 @@ import tn.esprit.spring.entities.Role;
 import tn.esprit.spring.entities.Timesheet;
 import tn.esprit.spring.services.IEmployeService;
 
-import org.apache.log4j.Logger;
+
 @Scope(value = "session")
 @Controller(value = "employeController")
 @ELBeanName(value = "employeController")
 @Join(path = "/", to = "/login.jsf")
 public class ControllerEmployeImpl  {
 	private static final Logger l = Logger.getLogger(ControllerEmployeImpl.class);
-
+	private static final String Vredirect = "/login.xhtml?faces-redirect=true";
+	
 	@Autowired
 	IEmployeService employeService;
 
@@ -79,7 +80,7 @@ public class ControllerEmployeImpl  {
 
 	public String addEmploye() {
 
-		if (authenticatedUser==null || !loggedIn) return "/login.xhtml?faces-redirect=true";
+		if (authenticatedUser==null || !loggedIn) return Vredirect;
 
 		employeService.addOrUpdateEmploye(new Employe(nom, prenom, email, password, actif, role)); 
 		return "null"; 
@@ -87,7 +88,7 @@ public class ControllerEmployeImpl  {
 
 	public String removeEmploye(int employeId) {
 		String navigateTo = "null";
-		if (authenticatedUser==null || !loggedIn) return "/login.xhtml?faces-redirect=true";
+		if (authenticatedUser==null || !loggedIn) return Vredirect;
 
 		employeService.deleteEmployeById(employeId);
 		return navigateTo; 
@@ -96,7 +97,7 @@ public class ControllerEmployeImpl  {
 	public String displayEmploye(Employe empl) 
 	{
 		String navigateTo = "null";
-		if (authenticatedUser==null || !loggedIn) return "/login.xhtml?faces-redirect=true";
+		if (authenticatedUser==null || !loggedIn) return Vredirect;
 
 
 		this.setPrenom(empl.getPrenom());
@@ -115,7 +116,7 @@ public class ControllerEmployeImpl  {
 	{ 
 		String navigateTo = "null";
 		
-		if (authenticatedUser==null || !loggedIn) return "/login.xhtml?faces-redirect=true";
+		if (authenticatedUser==null || !loggedIn) return Vredirect;
 
 		employeService.addOrUpdateEmploye(new Employe(employeIdToBeUpdated, nom, prenom, email, password, actif, role)); 
 

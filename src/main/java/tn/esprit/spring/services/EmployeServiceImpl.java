@@ -24,6 +24,7 @@ import tn.esprit.spring.repository.TimesheetRepository;
 @Service
 public class EmployeServiceImpl implements IEmployeService {
 	private static final Logger l = Logger.getLogger(ControllerEmployeImpl.class);
+	private static final Object Vauth = "In authenticate :";
 	@Autowired
 	EmployeRepository employeRepository;
 	@Autowired
@@ -37,7 +38,7 @@ public class EmployeServiceImpl implements IEmployeService {
 	public Employe authenticate(String login, String password) {
 		try {
 
-			l.info("In authenticate : ");
+			l.info(Vauth);
 			l.debug("Je vais lancer la authenticate");
 
 			l.debug("Je viens de finir l'authenticate.");
@@ -75,10 +76,15 @@ public class EmployeServiceImpl implements IEmployeService {
 			catch (Exception e) { l.error("Erreur dans authenticate() : " + e);}
 		Employe employe = employeRepository.findById(employeId).orElseGet(null);
 		if (employe == null) {
-			System.out.println("no employe");
-		}else
-		employe.setEmail(email);
-		employeRepository.save(employe);
+			l.info("no employe found");
+		}else {
+			if(employe!=null){
+				employe.setEmail(email);
+			}
+			
+			employeRepository.save(employe);
+		}
+	
 
 	}
 
@@ -99,7 +105,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		}
 		try {
 
-			l.info("In authenticate : ");
+			l.info(Vauth);
 			l.debug("Je vais lancer la recherche du depManaged en fonction du depId:"+depId);
 			l.debug("Je vais lancer la recherche du employeManagedEntity en fonction du employeId"+employeId);
 			l.debug("Je viens de finir la recherche.");
@@ -126,7 +132,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		}
 		try {
 
-			l.info("In authenticate : ");
+			l.info(Vauth);
 			l.debug("Je vais lancer la recherche du depManaged en fonction du depId:"+depId);
 			l.debug("Je vais lancer la recherche du employeManagedEntity en fonction du employeId"+employeId);
 			l.debug("Je viens de finir la recherche.");
@@ -143,7 +149,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		contratRepoistory.save(contrat);
 		try {
 
-			l.info("In authenticate : ");
+			l.info(Vauth);
 			l.debug("Je vais lancer l'ajout du contrat:");
 			l.debug("je viens de finir l'ajout du contrat");
 			l.info("Out ajouterContrat  without errors.");
@@ -160,7 +166,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		contratRepoistory.save(contratManagedEntity);
 		try {
 
-			l.info("In authenticate : ");
+			l.info(Vauth);
 			l.debug("Je vais lancer la recherche du contrat en fonction du contratID:"+contratId);
 			l.debug("Je vais lancer la recherche du employeManagedEntity en fonction du employeId"+employeId);
 			l.debug("Je viens de finir la recherche.");
@@ -176,7 +182,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		Employe employeManagedEntity = employeRepository.findById(employeId).orElseGet(null);
 		try {
 
-			l.info("In authenticate : ");
+			l.info(Vauth);
 			l.debug("Je vais lancer l'ajout du contrat:");
 			l.debug("je viens de finir l'ajout du contrat");
 			l.info("Out ajouterContrat  without errors.");
@@ -185,7 +191,10 @@ public class EmployeServiceImpl implements IEmployeService {
 		if (employeManagedEntity == null) {
 			return null;
 		}else
-		return employeManagedEntity.getPrenom();
+		{
+			return employeManagedEntity.getPrenom();
+		}
+	
 	}
 	 
 	public void deleteEmployeById(int employeId)
