@@ -28,7 +28,7 @@ import tn.esprit.spring.services.IEmployeService;
 public class ControllerEmployeImpl  {
 	private static final Logger l = Logger.getLogger(ControllerEmployeImpl.class);
 
-	private static final String redirect = "/login.xhtml?faces-redirect=true";
+	private static final String Redirect = "/login.xhtml?faces-redirect=true";
 
 	@Autowired
 	IEmployeService employeService;
@@ -72,13 +72,13 @@ public class ControllerEmployeImpl  {
 	{
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 	
-	return redirect;
+	return Redirect;
 	}
 
 
 	public String addEmploye() {
 
-		if (authenticatedUser==null || !loggedIn) return redirect;
+		if (authenticatedUser==null || !loggedIn) return Redirect;
 
 		employeService.addOrUpdateEmploye(new Employe(nom, prenom, email, password, actif, role)); 
 		return "null"; 
@@ -86,7 +86,7 @@ public class ControllerEmployeImpl  {
 
 	public String removeEmploye(int employeId) {
 		String navigateTo = "null";
-		if (authenticatedUser==null || !loggedIn) return redirect;
+		if (authenticatedUser==null || !loggedIn) return Redirect;
 
 		employeService.deleteEmployeById(employeId);
 		return navigateTo; 
@@ -95,7 +95,7 @@ public class ControllerEmployeImpl  {
 	public String displayEmploye(Employe empl) 
 	{
 		String navigateTo = "null";
-		if (authenticatedUser==null || !loggedIn) return redirect;
+		if (authenticatedUser==null || !loggedIn) return Redirect;
 
 
 		this.setPrenom(empl.getPrenom());
@@ -114,7 +114,7 @@ public class ControllerEmployeImpl  {
 	{ 
 		String navigateTo = "null";
 		
-		if (authenticatedUser==null || !loggedIn) return redirect;
+		if (authenticatedUser==null || !loggedIn) return Redirect;
 
 		employeService.addOrUpdateEmploye(new Employe(employeIdToBeUpdated, nom, prenom, email, password, actif, role)); 
 
