@@ -96,15 +96,14 @@ public class EmployeServiceImpl implements IEmployeService {
 		}
 		try {
 
-			l.info("In authenticate : ");
+			l.info("In affecterEmployeADepartement : ");
 			l.debug("Je vais lancer la recherche du depManaged en fonction du depId:"+depId);
-			l.debug("Je vais lancer la recherche du employeManagedEntity en fonction du employeId"+employeId);
-			l.debug("Je viens de finir la recherche.");
+			l.debug("Je vais lancer la recherche du depManagedEntity en fonction du employeId"+employeId);
+			l.debug("Je viens de finir la recherche de l'employe dans le departement.");
 			l.debug("je viens de commencer l'affectation les employe au departement");
 			l.info("Out affecterEmployeADepartement  without errors.");
 			}
 			catch (Exception e) { l.error("Erreur dans affecterEmployeADepartement : " + e);}
-		// à ajouter? 
 		deptRepoistory.save(depManagedEntity); 
 
 	}
@@ -124,7 +123,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		}
 		try {
 
-			l.info("In authenticate : ");
+			l.info("In desaffecterEmployeDuDepartement : ");
 			l.debug("Je vais lancer la recherche du depManaged en fonction du depId:"+depId);
 			l.debug("Je vais lancer la recherche du employeManagedEntity en fonction du employeId"+employeId);
 			l.debug("Je viens de finir la recherche.");
@@ -141,7 +140,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		contratRepoistory.save(contrat);
 		try {
 
-			l.info("In authenticate : ");
+			l.info("In ajouterContrat : ");
 			l.debug("Je vais lancer l'ajout du contrat:");
 			l.debug("je viens de finir l'ajout du contrat");
 			l.info("Out ajouterContrat  without errors.");
@@ -158,7 +157,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		contratRepoistory.save(contratManagedEntity);
 		try {
 
-			l.info("In authenticate : ");
+			l.info("In affecterContratAEmploye : ");
 			l.debug("Je vais lancer la recherche du contrat en fonction du contratID:"+contratId);
 			l.debug("Je vais lancer la recherche du employeManagedEntity en fonction du employeId"+employeId);
 			l.debug("Je viens de finir la recherche.");

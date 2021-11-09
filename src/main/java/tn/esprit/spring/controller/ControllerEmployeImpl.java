@@ -21,7 +21,6 @@ import tn.esprit.spring.entities.Role;
 import tn.esprit.spring.entities.Timesheet;
 import tn.esprit.spring.services.IEmployeService;
 
-import org.apache.log4j.Logger;
 @Scope(value = "session")
 @Controller(value = "employeController")
 @ELBeanName(value = "employeController")
@@ -29,9 +28,10 @@ import org.apache.log4j.Logger;
 public class ControllerEmployeImpl  {
 	private static final Logger l = Logger.getLogger(ControllerEmployeImpl.class);
 
+	private static final String redirect = "/login.xhtml?faces-redirect=true";
+
 	@Autowired
 	IEmployeService employeService;
-
 	private String login; 
 	private String password; 
 	private Boolean loggedIn;
@@ -78,7 +78,7 @@ public class ControllerEmployeImpl  {
 
 	public String addEmploye() {
 
-		if (authenticatedUser==null || !loggedIn) return "/login.xhtml?faces-redirect=true";
+		if (authenticatedUser==null || !loggedIn) return redirect;
 
 		employeService.addOrUpdateEmploye(new Employe(nom, prenom, email, password, actif, role)); 
 		return "null"; 
@@ -86,7 +86,7 @@ public class ControllerEmployeImpl  {
 
 	public String removeEmploye(int employeId) {
 		String navigateTo = "null";
-		if (authenticatedUser==null || !loggedIn) return "/login.xhtml?faces-redirect=true";
+		if (authenticatedUser==null || !loggedIn) return redirect;
 
 		employeService.deleteEmployeById(employeId);
 		return navigateTo; 
@@ -95,7 +95,7 @@ public class ControllerEmployeImpl  {
 	public String displayEmploye(Employe empl) 
 	{
 		String navigateTo = "null";
-		if (authenticatedUser==null || !loggedIn) return "/login.xhtml?faces-redirect=true";
+		if (authenticatedUser==null || !loggedIn) return redirect;
 
 
 		this.setPrenom(empl.getPrenom());
@@ -114,7 +114,7 @@ public class ControllerEmployeImpl  {
 	{ 
 		String navigateTo = "null";
 		
-		if (authenticatedUser==null || !loggedIn) return "/login.xhtml?faces-redirect=true";
+		if (authenticatedUser==null || !loggedIn) return redirect;
 
 		employeService.addOrUpdateEmploye(new Employe(employeIdToBeUpdated, nom, prenom, email, password, actif, role)); 
 

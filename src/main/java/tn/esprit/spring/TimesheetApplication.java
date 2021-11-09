@@ -1,5 +1,4 @@
 package tn.esprit.spring;
-import org.apache.log4j.Logger;   
 
 import java.util.EnumSet;
 
