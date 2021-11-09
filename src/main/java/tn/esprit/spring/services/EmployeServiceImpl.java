@@ -90,7 +90,7 @@ public class EmployeServiceImpl implements IEmployeService {
 
 	}
 
-	@Autowired
+
 	@Transactional	
 	public void affecterEmployeADepartement(int employeId, int depId) {
 		Departement depManagedEntity = deptRepoistory.findById(depId).get();
