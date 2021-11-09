@@ -173,7 +173,7 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 
 	public String getEmployePrenomById(int employeId) {
-		Employe employeManagedEntity = employeRepository.findById(employeId).get();
+		Employe employeManagedEntity = employeRepository.findById(employeId).orElseGet(null);
 		try {
 
 			l.info("In authenticate : ");
@@ -182,16 +182,20 @@ public class EmployeServiceImpl implements IEmployeService {
 			l.info("Out ajouterContrat  without errors.");
 			}
 			catch (Exception e) { l.error("Erreur dans ajouterContrat : " + e);}
+		if (employeManagedEntity == null) {
+			return null;
+		}else
 		return employeManagedEntity.getPrenom();
 	}
 	 
 	public void deleteEmployeById(int employeId)
 	{
-		Employe employe = employeRepository.findById(employeId).orElse(null);
+		Employe employe = employeRepository.findById(employeId).orElseGet(null);
 
 		//Desaffecter l'employe de tous les departements
 		//c'est le bout master qui permet de mettre a jour
 		//la table d'association
+		if (employe != null) {
 		for(Departement dep : employe.getDepartements()){
 			dep.getEmployes().remove(employe);
 		}
@@ -206,6 +210,7 @@ public class EmployeServiceImpl implements IEmployeService {
 			}
 			catch (Exception e) { l.error("Erreur dans deleteEmployeById : " + e);}
 	}
+		}
 
 	public void deleteContratById(int contratId) {
 		Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
