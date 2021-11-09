@@ -80,7 +80,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		if (employe == null) {
 			l.info("no employe found");
 		}else {
-			if(employe!=null){
+	
 				employe.setEmail(email);
 			}
 			
@@ -88,7 +88,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		}
 	
 
-	}
+	
 
 
 	@Transactional	
