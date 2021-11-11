@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: projet-devops
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: Mohamed-Habib
+Built-By: mehdi
 Implementation-Vendor-Id: tn.esprit.spring
-Build-Jdk: 1.8.0_291
+Build-Jdk: 1.8.0_60
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/projet-devops
 Created-By: Maven Integration for Eclipse
