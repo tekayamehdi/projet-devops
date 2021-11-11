@@ -79,17 +79,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 			}}}
 			catch (Exception e) { l.error("Erreur dans d'affecter un Departement a une Entreprise() : " + e); }
 			
-		//Le bout Master de cette relation N:1 est departement  
-				//donc il faut rajouter l'entreprise a departement 
-				// ==> c'est l'objet departement(le master) qui va mettre a jour l'association
-				//Rappel : la classe qui contient mappedBy represente le bout Slave
-				//Rappel : Dans une relation oneToMany le mappedBy doit etre du cote one.
-				Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId).get();
-				Departement depManagedEntity = deptRepoistory.findById(depId).get();
-				
-				depManagedEntity.setEntreprise(entrepriseManagedEntity);
-				deptRepoistory.save(depManagedEntity);
-		
+
 	}
 	
 	public List<String> getAllDepartementsNamesByEntreprise(int entrepriseId) {
