@@ -128,7 +128,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 			l.info("finb de   la methode delete entreprise by id");
 		}
 		else {
-			l.debug("l'entreprise n'existe pass");
+			l.debug("l'entreprise n'existe pas");
 			l.info("finb de   la methode delete entreprise by id");
 
 		}
