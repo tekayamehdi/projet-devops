@@ -3,6 +3,7 @@ package tn.esprit.spring.services;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,39 +53,32 @@ public class EmployeServiceImpl implements IEmployeService {
 
 	@Override
 	public int addOrUpdateEmploye(Employe employe) {
-		try {
+	
 
 			l.info("In addOrUpdateEmploye : ");
 			l.debug("Je vais lancer add Or Update ");
-
+			employeRepository.save(employe);
 			l.debug("Je viens de finir add or update.");
-			l.info("Out addOrUpdateEmploye without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans addOrUpdateEmploye() : " + e);}
-		employeRepository.save(employe);
+			l.info("fin addOrUpdateEmploye without errors.");
+
+		
 		return employe.getId();
 	}
 
 
 	public void mettreAjourEmailByEmployeId(String email, int employeId) {
-		try {
-
-			l.info("In mettreAjourEmailByEmployeId : ");
-			l.debug("Je vais lancer la mise a jour de l'employe en fonction de l'id"+employeId);
-
-			l.debug("Je viens de finir la mise a jour de l'employe.");
-			l.info("Out authenticate() without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans authenticate() : " + e);}
-		Employe employe = employeRepository.findById(employeId).orElseGet(null);
-		if (employe == null) {
-			l.info("no employe found");
-		}else {
-	
-				employe.setEmail(email);
-			}
-			
+		l.info("In mettreAjourEmailByEmployeId ");
+		l.debug("je vais mettre à jour email de l'employe");
+		Optional<Employe> value = employeRepository.findById(employeId);
+		if (value.isPresent()) {
+			Employe employe = value.get();
+			employe.setEmail(email);
 			employeRepository.save(employe);
+		}
+		else {
+			l.debug("je viens de mettre à jour email de l'employe");
+			l.info("fin mettreAjourEmailByEmployeId");
+		}
 		}
 	
 
@@ -93,182 +87,170 @@ public class EmployeServiceImpl implements IEmployeService {
 
 	@Transactional	
 	public void affecterEmployeADepartement(int employeId, int depId) {
-		Departement depManagedEntity = deptRepoistory.findById(depId).orElseGet(null);
-		Employe employeManagedEntity = employeRepository.findById(employeId).orElse(null);
-	
 
-		if(depManagedEntity.getEmployes() == null){
+		l.info("In affecterEmployeADepartement ");
+		l.debug("je vais affecter employe à un departement");
+		Optional<Departement> value = deptRepoistory.findById(depId);
+		if (value.isPresent()) {
+			Departement depManagedEntity = value.get();
+			Optional<Employe> value1 = employeRepository.findById(employeId);
+			if (value1.isPresent()) {
+				Employe employeManagedEntity = value1.get();
 
-			List<Employe> employes = new ArrayList<>();
-			employes.add(employeManagedEntity);
-			depManagedEntity.setEmployes(employes);
-		}else{
+				if (depManagedEntity.getEmployes() == null) {
 
-			depManagedEntity.getEmployes().add(employeManagedEntity);
-		}
-		try {
+					List<Employe> employes = new ArrayList<>();
+					employes.add(employeManagedEntity);
+					depManagedEntity.setEmployes(employes);
+				}
+				else {
 
-			l.info(Vauth);
-			l.debug("Je vais lancer la recherche du depManaged en fonction du depId:"+depId);
-			l.debug(Vrech+""+employeId);
-			l.debug(Vrech2);
-			l.debug("je viens de commencer l'affectation les employe au departement");
-			l.info("Out affecterEmployeADepartement  without errors.");
+					depManagedEntity.getEmployes().add(employeManagedEntity);
+
+				}
 			}
-			catch (Exception e) { l.error("Erreur dans affecterEmployeADepartement : " + e);}
-		// à ajouter? 
-		deptRepoistory.save(depManagedEntity); 
+		}
+		l.debug("je viens d'affecter l'employe à un departement");
+		l.info("fin affecterEmployeADepartement");
 
 	}
 	@Transactional
 	public void desaffecterEmployeDuDepartement(int employeId, int depId)
 	{
-		Departement dep = deptRepoistory.findById(depId).get();
+		l.info("In desaffecterEmployeDuDepartement");
+		l.debug("je vais desaffecter employe d'un departement");
+		Optional<Departement> value = deptRepoistory.findById(depId);
+		if (value.isPresent()) {
+			Departement dep = value.get();
 
-
-		int employeNb = dep.getEmployes().size();
-		for(int index = 0; index < employeNb; index++){
-			if(dep.getEmployes().get(index).getId() == employeId){
-				dep.getEmployes().remove(index);
-				break;//a revoir
+			int employeNb = dep.getEmployes().size();
+			for (int index = 0; index < employeNb; index++) {
+				if (dep.getEmployes().get(index).getId() == employeId) {
+					dep.getEmployes().remove(index);
+					break;
+				}
 			}
 		}
-		try {
-
-			l.info(Vauth);
-			l.debug("Je vais lancer la recherche du depManaged en fonction du depId:"+depId);
-			l.debug(Vrech+""+employeId);
-			l.debug(Vrech2);
-			l.debug("je viens de commencer l'desaffectation les employe au departement");
-			l.info("Out affecterEmployeADepartement  without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans desaffecterEmployeADepartement : " + e);}
+		l.debug("je viens de desaffecter l'employe du departement");
+		l.info("fin desaffecterEmployeDuDepartement");
 	} 
 	
 	// Tablesapce (espace disque) 
 
 	public int ajouterContrat(Contrat contrat) {
 	
+		l.info("In ajouterContrat");
+		l.debug("je vais lancer save de contrat");
 		contratRepoistory.save(contrat);
-		try {
-
-			l.info(Vauth);
-			l.debug("Je vais lancer l'ajout du contrat:");
-			l.debug("je viens de finir l'ajout du contrat");
-			l.info("Out ajouterContrat  without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans ajouterContrat : " + e);}
+		l.debug("je viens de finir save de contrat");
+		l.info("fin de ajouterContrat  ");
 		return contrat.getReference();
 		
 	}
 
 	public void affecterContratAEmploye(int contratId, int employeId) {
-		Contrat contratManagedEntity = contratRepoistory.findById(contratId).orElse(null);
-		Employe employeManagedEntity = employeRepository.findById(employeId).orElse(null);
-		contratManagedEntity.setEmploye(employeManagedEntity);
-		contratRepoistory.save(contratManagedEntity);
-		try {
+		l.info("In affecterContratAEmploye ");
+		l.debug("je vais affecter un contrat à un employe");
+		Optional<Contrat> value = contratRepoistory.findById(contratId);
+		if (value.isPresent()) {
+			Contrat contratManagedEntity = value.get();
+			Optional<Employe> value1 = employeRepository.findById(employeId);
+			if (value1.isPresent()) {
 
-			l.info(Vauth);
-			l.debug("Je vais lancer la recherche du contrat en fonction du contratID:"+contratId);
-			l.debug(Vrech+""+employeId);
-			l.debug(Vrech2);
-			l.debug("je viens de commencer l'affectation les contrat au employe");
-			l.info("Out affecterContratAEmploye without errors.");
+				Employe employeManagedEntity = value1.get();
+
+				contratManagedEntity.setEmploye(employeManagedEntity);
+				contratRepoistory.save(contratManagedEntity);
 			}
-			catch (Exception e) { l.error("Erreur dans affecterContratAEmploye : " + e);}
-		
+		}
+		l.debug("je viens d'affecter un contrat à un employe");
+		l.info("fin affecterContratAEmploye");
 
 	}
 
 	public String getEmployePrenomById(int employeId) {
-		Employe employeManagedEntity = employeRepository.findById(employeId).orElseGet(null);
-		try {
-
-			l.info(Vauth);
-			l.debug("Je vais lancer l'ajout du contrat:");
-			l.debug("je viens de finir l'ajout du contrat");
-			l.info("Out ajouterContrat  without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans ajouterContrat : " + e);}
-		if (employeManagedEntity == null) {
-			return null;
-		}else
-		{
+		l.info("In getEmployePrenomById ");
+		l.debug("je vais récupéré le prenom d'un employe à travers son id");
+		Optional<Employe> value = employeRepository.findById(employeId);
+		if (value.isPresent()) {
+			Employe employeManagedEntity = value.get();
 			return employeManagedEntity.getPrenom();
+		}
+		else {
+
+			l.debug("je viens de récupéré le prenom d'un employe à travers son id");
+			l.info("fin getEmployePrenomById");
+			return null;
 		}
 	
 	}
 	 
 	public void deleteEmployeById(int employeId)
-	{
-		Employe employe = employeRepository.findById(employeId).orElseGet(null);
-
-		//Desaffecter l'employe de tous les departements
-		//c'est le bout master qui permet de mettre a jour
-		//la table d'association
-		if (employe != null) {
-		for(Departement dep : employe.getDepartements()){
+	{l.info("In deleteEmployeById");
+	l.debug("je vais effacer un employe à travers son id");
+	Optional<Employe> value = employeRepository.findById(employeId);
+	if (value.isPresent()) {
+		Employe employe = value.get();
+		for (Departement dep : employe.getDepartements()) {
 			dep.getEmployes().remove(employe);
 		}
-
 		employeRepository.delete(employe);
-		try {
-
-			l.debug("Je vais lancer la recherche de l'employe en fn de l'id:"+employeId);
-			l.debug("Je vais lancer l'supperession de l'employe");
-			l.debug("je viens de finir la suppression");
-			l.info("Out deleteEmployeById  without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans deleteEmployeById : " + e);}
+		l.debug("je viens d'effacer un employe à travers son id");
+		l.info("fin deleteEmployeById");
 	}
+
+	l.debug("le employee n'existe pas");
+	l.info("fin de la methode delete employe by id");
 		}
 
 	public void deleteContratById(int contratId) {
-		Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
-		contratRepoistory.delete(contratManagedEntity);
-		try {
-
-			l.debug("Je vais lancer la recherche de l'employe en fn de l'id:"+contratId);
-			l.debug("Je vais lancer l'supperession du contrat");
-			l.debug("je viens de finir la suppression");
-			l.info("Out deleteContratById  without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans deleteContratById: " + e);}
+		l.info("In deleteContratById ");
+		l.debug("je vais effacer un contrat à travers son id");
+		Optional<Contrat> value = contratRepoistory.findById(contratId);
+		if (value.isPresent()) {
+			Contrat contratManagedEntity = value.get();
+			contratRepoistory.delete(contratManagedEntity);
+			l.debug("je viens d'effacer un contrat à travers son id");
+			l.info("fin de la methode delete contrat by id");
+		}
+		else {
+			l.debug("le contrat n'existe pas");
+			l.info("fin deleteContratById");
+		}
 	}
 
 	public int getNombreEmployeJPQL() {
-		try {
+		
 			l.info("in getNombreEmployeJPQL");
 			l.debug("Je vais lancer l'affichage du nombre d'employe :");
+			int res = employeRepository.countemp();
+			l.debug("Je viens de recuperer le nombre d'employe");
 			l.info("Out getNombreEmployeJPQL  without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans getNombreEmployeJPQL: " + e);}
-		return employeRepository.countemp();
+			
+			
+		return res ;
 		
 	}
 
 	public List<String> getAllEmployeNamesJPQL() {
-		try {
+	
 			l.info("in getNombreEmployeJPQL");
 			l.debug("Je vais lancer l'affichage du nombre d'employe :");
+			List<String> res =employeRepository.employeNames();
 			l.info("Out getNombreEmployeJPQL  without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans getNombreEmployeJPQL: " + e);}
-		return employeRepository.employeNames();
+			l.debug("je viens récupérer les noms des tous les employes");
+		return res;
+		
 
 	}
 
 	public List<Employe> getAllEmployeByEntreprise(Entreprise entreprise) {
-		try {
-
-			l.info("In getAllEmployeByEntreprise : ");
-			l.debug("Je viens de lancer l'affichage des employe en fonction de l'entreprise.");
-			l.debug("je viens de finir l'affichage des employe en fonction de l'entreprise:"+entreprise);
-			l.info("Out getAllEmployeByEntreprise without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans getAllEmployeByEntreprise : " + e); }
-		return employeRepository.getAllEmployeByEntreprisec(entreprise);
+		l.info("In getAllEmployeByEntreprise");
+		l.debug("je vais récupérer les employe par entreprise");
+		List<Employe> res = employeRepository.getAllEmployeByEntreprisec(entreprise);
+		l.debug("je viens de récupérer les employe par entreprise");
+		l.info("fin de  la methode  getAllEmployeByEntreprise");
+		return res;
 	}
 
 	public void mettreAjourEmailByEmployeIdJPQL(String email, int employeId) {
@@ -284,66 +266,52 @@ public class EmployeServiceImpl implements IEmployeService {
 
 	}
 	public void deleteAllContratJPQL() {
-		try {
-
-			l.info("In deleteAllContractJPQL : ");
-			l.debug("Je viens de lancer la suppression des contract JPQL.");
-			l.debug("je viens de finir la suppression des contract JPQL");
-			l.info("Out deleteAllContratJPQL() without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans deleteAllContratJPQL() : " + e); }
+		l.info("In deleteAllContratJPQL");
+		l.debug("je vais supprimer tous les contrats");
 		employeRepository.deleteAllContratJPQL();
+		l.debug("je viens de supprimer tous les contrats");
+		l.info("fin de  la methode  deleteAllContratJPQL");
 	}
 
 	public float getSalaireByEmployeIdJPQL(int employeId) {
-		try {
 
-			l.info("In getSalaireMoyenByEmployeIdJPQL : ");
-			l.debug("Je viens de lancer l'affichage du salaire moyen en fonction de l'EmployeIDJPQL.");
-			l.debug("je viens de finir l'affichage des salaire en fonction de l'EmployeIDJPQL:"+employeId);
-			l.info("Out getSalaireByEmployeIdJPQL without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans getSalaireByEmployeIdJPQL() : " + e); }
-		return employeRepository.getSalaireByEmployeIdJPQL(employeId);
+		l.info("In getSalaireByEmployeIdJPQL");
+		l.debug("je vais récupérer la salaire du employe by id");
+		float res = employeRepository.getSalaireByEmployeIdJPQL(employeId);
+		l.debug("je viens de récupérer la salaire du employe by id");
+		l.info("fin de  la methode  getSalaireByEmployeIdJPQL");
+		return res;
 	}
 
 	public Double getSalaireMoyenByDepartementId(int departementId) {
-		try {
-
-			l.info("In getSalaireMoyenByDepartementId() : ");
-			l.debug("Je viens de lancer l'affichage du salaire moyen en fonction de l'id du departement.");
-			l.debug("je viens de finir l'affichage des salaire en fonction de departementID:"+departementId);
-			l.info("Out getSalaireMoyenByDepartementId() without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans getSalaireMoyenByDepartementId() : " + e); }
-		
-		return employeRepository.getSalaireMoyenByDepartementId(departementId);
+		l.info("In getSalaireMoyenByDepartementId");
+		l.debug("je vais récupérer la salaire moyene by departement");
+		Double a = employeRepository.getSalaireMoyenByDepartementId(departementId);
+		l.debug("je viens de récupérer la salaire moyene by departement");
+		l.info("fin de  la methode  getSalaireMoyenByDepartementId");
+		return a;
 		
 	}
 
 	public List<Timesheet> getTimesheetsByMissionAndDate(Employe employe, Mission mission, Date dateDebut,
 			Date dateFin) {
-		try {
 
-			l.info("In TimesheetsByMissionAndDate() : ");
-			l.debug("Je vais afficher les Timesheets en fonction des missions et date.");
-			l.info("Out getTimesheetsByMissionAndDate() without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans getTimesheetsByMissionAndDate() : " + e); }
-		
-		return timesheetRepository.getTimesheetsByMissionAndDate(employe, mission, dateDebut, dateFin);
+
+			l.info("In getTimesheetsByMissionAndDate");
+			l.debug("je vais récupérer la liste du Timesheet by mission and date");
+			List<Timesheet> res = timesheetRepository.getTimesheetsByMissionAndDate(employe, mission,
+					dateDebut, dateFin);
+			l.debug("je viens de récupérer la liste du Timesheet by mission and date");
+			l.info("fin de  la methode  getTimesheetsByMissionAndDate");
+			return res;
 	}
 
 	public List<Employe> getAllEmployes() {
-		try {
-
-			l.info("In getAllPrducts() : ");
-			l.debug("Je viens de lancer l'affichage les employés.");
-			l.debug("je viens de finier l'affichage des employés");
-			l.info("Out getAllPrducts() without errors.");
-			}
-			catch (Exception e) { l.error("Erreur dans getAllEmployes() : " + e); }
-		return (List<Employe>) employeRepository.findAll();
+		l.info("In getAllEmployes");
+		l.debug("je vais récupérer la liste de tous les employes");
+		List<Employe> res = (List<Employe>) employeRepository.findAll();
+		l.debug("je viens de récupérer la liste de tous les employes");
+		l.info("fin de  la methode  get all  employe");
+		return res;
 	}
-
 }
