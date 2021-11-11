@@ -140,15 +140,15 @@ l.info("lancer la methode ajouterTimesheet");
 
 	
 	public List<Mission> findAllMissionByEmployeJPQL(int employeId) {
-		l.info("je vais lancer la methode findAllMissionByEmployeIdJPQL");
-		l.debug("je vais récupérer les missions du employe by id");
+		l.info("lancement de la methode findAllMissionByEmployeIdJPQL");
+		l.debug("recuperation des missions du employe by id");
 		return timesheetRepository.findAllMissionByEmployeJPQL(employeId);
 		}
 
 	
 	public List<Employe> getAllEmployeByMission(int missionId) {
-		l.info("je vais lancer la methode getAllEmployeByMission");
-		l.debug("je vais récupérer les employées dans la meme mission  by missionId");
+		l.info("lancement de la methode getAllEmployeByMission");
+		l.debug("recuperation des employées dans la meme mission  by missionId");
 		return timesheetRepository.getAllEmployeByMission(missionId);
 		}
 
