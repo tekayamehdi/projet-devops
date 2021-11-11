@@ -36,8 +36,7 @@ class TimesheetApplicationTests {
 
 		l.info("lancer la methode ajouterEmployeTest");
 		l.debug("je vais ajouter un employe");
-		Employe employe = new Employe("hanini", "habib", "habhnini@gmail.com",
-				"123ingenieur", true, Role.INGENIEUR);
+		Employe employe = new Employe("hanini", "habib", "habhnini@gmail.com","123ingenieur", true, Role.INGENIEUR);
 		int employeId = employeController.ajouterEmploye(employe);
 		l.debug("je vais afficher un employe en fonction de l'id");
 		Assert.assertNotNull(employeController.getEmployePrenomById(employeId));
@@ -66,7 +65,6 @@ class TimesheetApplicationTests {
 		l.debug("je vais mettre ajour l'email d'un employe a traver son id");
 		Departement dep = new Departement("It");
 	
-		;
 		Assert.assertEquals(1,entrepriseController.ajouterDepartement(dep));
 		l.debug("je viens d'afficher l'entreprise que je viens d'ajouter");
 		
