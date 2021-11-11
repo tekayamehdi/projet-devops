@@ -5,11 +5,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tn.esprit.spring.TimesheetApplication;
 import tn.esprit.spring.controller.ControllerEmployeImpl;
 import tn.esprit.spring.entities.Contrat;
 import tn.esprit.spring.entities.Departement;
@@ -24,7 +27,7 @@ import tn.esprit.spring.repository.TimesheetRepository;
 
 @Service
 public class EmployeServiceImpl implements IEmployeService {
-	private static final Logger l = Logger.getLogger(ControllerEmployeImpl.class);
+	private static final Logger l = LogManager.getLogger(EmployeServiceImpl.class);
 	private static final Object Vauth = "In authenticate :";
 	private static final Object Vrech ="Je vais lancer la recherche du employeManagedEntity en fonction du employeId";
 	private static final Object Vrech2 ="Je viens de finir la recherche.";
