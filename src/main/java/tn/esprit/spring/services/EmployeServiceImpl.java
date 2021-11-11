@@ -93,7 +93,7 @@ public class EmployeServiceImpl implements IEmployeService {
 
 	@Transactional	
 	public void affecterEmployeADepartement(int employeId, int depId) {
-		Departement depManagedEntity = deptRepoistory.findById(depId).get();
+		Departement depManagedEntity = deptRepoistory.findById(depId).orElseGet(null);
 		Employe employeManagedEntity = employeRepository.findById(employeId).orElse(null);
 	
 
