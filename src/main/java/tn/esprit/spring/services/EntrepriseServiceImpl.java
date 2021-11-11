@@ -69,43 +69,43 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 				
 				
 			l.debug("je viens de trouver le departement" + depManagedEntity);
-			l.debug("je vais lancer l'update de l'ntreprise et l'enregistré");	
+			l.debug("je vais lancer l'update de l'entreprise et l'enregistré");	
 			
 					depManagedEntity.setEntreprise(entrepriseManagedEntity);
 					deptRepoistory.save(depManagedEntity);
 					
-			l.debug("je viens de faire l'update l'update de l'ntreprise et l'enregistré");	
-			l.info("fin de   la methode affectation departement a entreprise");
+			l.debug("je viens de faire l'update de l'entreprise et l'enregistré");	
+			l.info("fin de la methode affectation departement a entreprise");
 			}}}
-			catch (Exception e) { l.error("Erreur dans d'affecter un Departement a une Entreprise() : " + e); }
+			catch (Exception e) { l.error("Erreur d'affecter un Departement a une Entreprise() : " + e); }
 			
 
 	}
 	
 	public List<String> getAllDepartementsNamesByEntreprise(int entrepriseId) {
 		try {
-		l.info("lancer  la methode get all department names by entreprise");
-		l.debug("lancer  la recherche de l entreprise par id");
+		l.info("lancer la methode getAllDepartmentsNamesByEntreprise");
+		l.debug("lancer la recherche de l entreprise par id");
 		Optional<Entreprise> value = entrepriseRepoistory.findById(entrepriseId);
 		if (value.isPresent()) 
 		
 		{Entreprise entrepriseManagedEntity= value.get();
 			
-		l.debug("je viens de trouver l entreprise" +entrepriseManagedEntity);
+		l.debug("je viens de trouver l'entreprise" +entrepriseManagedEntity);
 		List<String> depNames = new ArrayList<>();
-		l.debug("je vais lancer  la boucle sur tous les departements et ajouter le nom du departementt au tableau depNames");
+		l.debug("je vais lancer la boucle sur tous les departements et ajouter le nom du departement au tableau depNames");
 		
 		for(Departement dep : entrepriseManagedEntity.getDepartements()){
 			depNames.add(dep.getName());
 		}
 		
 		l.debug("je viens de remplir le tableau depNames");
-		l.info("fin de   la methode get all department names by entreprise");
+		l.info("fin de la methode getAllDepartmentsNamesByEntreprise");
 		return depNames;
 		}}
 		catch (Exception e)
-		{l.error("l'entreprisee n'existe pas");
-		l.info("fin de   la methode get all department names by entreprise");
+		{l.error("l'entreprise n'existe pas");
+		l.info("fin de la methode getAllDepartmentsNamesByEntreprise");
 		}
 		return new ArrayList<>();
 		
@@ -113,60 +113,59 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	@Transactional
 	public void deleteEntrepriseById(int entrepriseId) {
 		try {
-		l.info("lancer  la methode delete entreprise by id");
-		l.debug("je vais lancer  la methode delete entreprise by id");
+		l.info("lancer la methode deleteEntrepriseById");
+		l.debug("je vais lancer la methode deleteEntrepriseById");
 		Optional<Entreprise> value = entrepriseRepoistory.findById(entrepriseId);
 		if (value.isPresent()) {
-			Entreprise ent=value.get();
-			entrepriseRepoistory.delete(ent);	
+			Entreprise entreprise=value.get();
+			entrepriseRepoistory.delete(entreprise);	
 			
-			l.debug("je viens de finir la delete entreprise by id");
-			l.info("finb de   la methode delete entreprise by id");	
+			l.debug("je viens de finir la deleteEntrepriseById");
+			l.info("fin de la methode deleteEntrepriseById");	
 		}}
 		catch (Exception e) {l.error("l'entreprise n'existe pas");
-		l.info("finb de   la methode delete entreprise by id");	
+		l.info("fin de la methode deleteEntrepriseById");	
 			
-		}
-		
+		}		
 	}
 
 
 	@Transactional
 	public void deleteDepartementById(int depId) {
 		try {
-		l.info("lancer  la methode delete department by id");
-		l.debug("je vais lancer  la methode delete departement by id");
+		l.info("je vais commencer lancement la methode delete department by id");
+		l.debug("je vais lancer la methode delete departement by id");
 		Optional<Departement> value = deptRepoistory.findById(depId);
 		if (value.isPresent()) {
 			Departement dep=value.get();
 		deptRepoistory.delete(dep);
 		
-		l.debug("je viens de finir la delete departement by id");
-		l.info("fin de  la methode delete department by id");
+		l.debug("je viens de finir methode delete departement by id");
+		l.info("fin de la methode delete department by id");
 		}}
 		
 		catch (Exception e) {
 			l.error("le departement n'existe pas");
-			l.info("fin de  la methode delete department by id");
+			l.info("fin de la methode delete department by id");
 		}
 		}
 
 
 	public Entreprise getEntrepriseById(int entrepriseId) {
 		try {
-		l.info("lancer  la methode get entreprise by id");
-		l.debug("je vais lancer  la recherche de l'entreprise par id");
+		l.info("lancement de la methode get entreprise by id");
+		l.debug("je vais lancer la recherche de l'entreprise par id");
 		Optional<Entreprise> value = entrepriseRepoistory.findById(entrepriseId);
 		if (value.isPresent()) {
 			Entreprise ent=value.get();
 			
 		l.debug("je viens de trouver l'entreprise par id"+ent);
-		l.info("fin de   la methode get entreprise by id");
+		l.info("fin de la methode get entreprise by id");
 		 return ent;
 		}}
 		
-		catch(Exception e) {l.error("l'entreprise n'existeee pas");}
-		l.info("fin de   la methode get entreprise by id"); 
+		catch(Exception e) {l.error("l'entreprise n'existe pas");}
+		l.info("fin de la methode get entreprise by id"); 
 		return null;}
 	
 	

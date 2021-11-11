@@ -46,7 +46,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		l.debug("je vais lancer enregistrement de l'employe");
 		employeRepository.save(employe);
 		l.debug("je viens de finir l'enregistrement de l'employe");
-		l.info("fin de  la methode ajouter employe");
+		l.info("fin de la methode ajouter employe");
 		return employe.getId();
 	}
 
@@ -61,7 +61,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		employeRepository.save(employe);
 	}else {
 		l.debug("je viens de mettre à jour email de l'employe");
-		l.info("fin de  la methode mettre à jour email by employe id");
+		l.info("fin de la methode mettre à jour email by employe id");
 	}	
 
 	}
@@ -123,7 +123,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		l.debug("je vais lancer save de contrat");
 		contratRepoistory.save(contrat);
 		l.debug("je viens de finir save de contrat");
-		l.info("fin de  la methode ajouter contrat");
+		l.info("fin de la methode ajouter contrat");
 		return contrat.getReference();
 	}
 
@@ -203,7 +203,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		l.debug("je vais récupérer le nombre de tous les employes");
 		int a =  employeRepository.countemp();
 		l.debug("je viens récupérer le nombre de tous les employes");
-		l.info("fin de  la methode  getNombreEmployeJPQL");
+		l.info("fin de la methode getNombreEmployeJPQL");
 		return a;
 	}
 
@@ -212,7 +212,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		l.debug("je vais récupérer les noms des tous les employes");
 		 List<String> a = employeRepository.employeNames();
 		l.debug("je viens récupérer les noms des tous les employes");
-		l.info("fin de  la methode  getAllEmployeNamesJPQL");
+		l.info("fin de la methode getAllEmployeNamesJPQL");
 		return a;
 	}
 
@@ -221,7 +221,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		l.debug("je vais récupérer les employe par entreprise");
 		 List<Employe> a= employeRepository.getAllEmployeByEntreprisec(entreprise);
 		l.debug("je viens de récupérer les employe par entreprise");
-		l.info("fin de  la methode  getAllEmployeByEntreprise");
+		l.info("fin de la methode getAllEmployeByEntreprise");
 		return a;
 		}
 
@@ -230,7 +230,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		l.debug("je vais mettre ajour l'email d'un employe a traver son id");
 		employeRepository.mettreAjourEmailByEmployeIdJPQL(email, employeId);
 		l.debug("je viens de mettre ajour l'email d'un employe a traver son id");
- 		l.info("fin de  la methode  mettreAjourEmailByEmployeIdJPQL");
+ 		l.info("fin de la methode mettreAjourEmailByEmployeIdJPQL");
 
 	}
 	public void deleteAllContratJPQL() {
@@ -238,7 +238,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		l.debug("je vais supprimer tous les contrats");
          employeRepository.deleteAllContratJPQL();
          l.debug("je viens de supprimer tous les contrats");
- 		l.info("fin de  la methode  deleteAllContratJPQL");
+ 		l.info("fin de la methode deleteAllContratJPQL");
  		}
 
 	public float getSalaireByEmployeIdJPQL(int employeId) {
@@ -246,7 +246,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		l.debug("je vais récupérer la salaire du employe by id");
 		float a =  employeRepository.getSalaireByEmployeIdJPQL(employeId);
 		l.debug("je viens de récupérer la salaire du employe by id");
-		l.info("fin de  la methode  getSalaireByEmployeIdJPQL");
+		l.info("fin de la methode getSalaireByEmployeIdJPQL");
 		return a;
 		}
 
@@ -255,7 +255,7 @@ public class EmployeServiceImpl implements IEmployeService {
 		l.debug("je vais récupérer la salaire moyene by departement");
 		Double a = employeRepository.getSalaireMoyenByDepartementId(departementId);
 		l.debug("je viens de récupérer la salaire moyene by departement");
-		l.info("fin de  la methode  getSalaireMoyenByDepartementId");
+		l.info("fin de la methode  getSalaireMoyenByDepartementId");
 		return a;
 		}
 
@@ -265,16 +265,16 @@ public class EmployeServiceImpl implements IEmployeService {
 		l.debug("je vais récupérer la liste du Timesheet by mission and date");
 		List<Timesheet> a = timesheetRepository.getTimesheetsByMissionAndDate(employe, mission, dateDebut, dateFin);
 		l.debug("je viens de récupérer la liste du Timesheet by mission and date");
-		l.info("fin de  la methode  getTimesheetsByMissionAndDate");
+		l.info("fin de la methode getTimesheetsByMissionAndDate");
 		return a;
 		}
 
 	public List<Employe> getAllEmployes() {
-		l.info("lancer la methode get all  employe");
+		l.info("lancer la methode get all employe");
 		l.debug("je vais récupérer la liste de tous les employes");
 		List<Employe> a = (List<Employe>) employeRepository.findAll();
 		l.debug("je viens de récupérer la liste de tous les employes");
-		l.info("fin de  la methode  get all  employe");
+		l.info("fin de la methode getAllEmployes");
 				return a;
 		}
 
