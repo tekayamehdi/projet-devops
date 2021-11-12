@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  myapp-mysql:
+    image: mysql:5.6
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=timesheet-spring
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=
+    ports:
+      - 3307:3306
+
+  timesheet:
+  
+    image: projet-devops
+    build: ./
+    restart: on-failure
+    depends_on:
+      - myapp-mysql
+    ports:
+      - 8083:8083
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/timesheet-spring?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
