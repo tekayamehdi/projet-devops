@@ -161,7 +161,6 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 			
 		l.debug("je viens de trouver l'entreprise par id"+ent);
 		l.info("fin de la methode get entreprise by id");
-		l.warn("hello world");
 		 return ent;
 		}}
 		
