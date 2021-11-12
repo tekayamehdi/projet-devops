@@ -64,12 +64,10 @@ class TimesheetApplicationTests {
 	void ajouterDepartementetaffeterTest() {
 		l.info("lancer la methode ajouterEntrepriseTest");
 		l.debug("je vais mettre ajour l'email d'un employe a traver son id");
-		Departement dep = new Departement("It");
-	
-		;
-		Assert.assertEquals(1,entrepriseController.ajouterDepartement(dep));
-		l.debug("je viens d'afficher l'entreprise que je viens d'ajouter");
-		
+		Entreprise entreprise = new Entreprise("It","test");
+		int entrepriseId = entrepriseController.ajouterEntreprise(entreprise);
+		Assert.assertNotNull(entrepriseController.getAllDepartementsNamesByEntreprise(entrepriseId));
+		l.debug("je viens d'afficher l'entreprise que je viens d'ajouter");	
 		l.info("fin de la methode ajouterEntrepriseTest");
 	}
 	
