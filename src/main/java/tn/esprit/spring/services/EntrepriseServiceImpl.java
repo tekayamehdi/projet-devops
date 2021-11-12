@@ -154,7 +154,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 
 	public Entreprise getEntrepriseById(int entrepriseId) {
 		try {
-		l.info("lancer  la methode get entreprise by id");
+		l.info("lancer  la methode GetEntrepriseById");
 		l.debug("je vais lancer  la recherche de l'entreprise par id");
 		Optional<Entreprise> value = entrepriseRepoistory.findById(entrepriseId);
 		if (value.isPresent()) {
@@ -166,7 +166,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 		}}
 		
 		catch(Exception e) {l.error("l'entreprise n'existeee pas");}
-		l.info("fin de   la methode get entreprise by id"); 
+		l.info("fin de la methode GetEntrepriseById"); 
 		return null;}
 	
 	

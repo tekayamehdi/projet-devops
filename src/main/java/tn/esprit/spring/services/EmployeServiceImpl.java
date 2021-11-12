@@ -189,7 +189,8 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 	 
 	public void deleteEmployeById(int employeId)
-	{l.info("In deleteEmployeById");
+	{
+		l.info("In deleteEmployeById");
 	l.debug("je vais effacer un employe à travers son id");
 	Optional<Employe> value = employeRepository.findById(employeId);
 	if (value.isPresent()) {
