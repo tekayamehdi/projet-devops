@@ -23,23 +23,52 @@ class TimesheetApplicationTests {
 	private static final Logger l = LogManager.getLogger(TimesheetApplication.class);
 
 	@Autowired
-	ControllerEmployeImpl employeControl;
+	ControllerEmployeImpl employeController;
 	@Autowired
 	EmployeRepository employeRepository;
+	@Autowired
+	ControllerEntrepriseImpl entrepriseController;
+	@Autowired
+	EmployeRepository entrepriseRepository;
 	@Transactional
 	@Test
-	void mettreAjourEmailByEmployeIdJPQL() {
+	void ajouterEmployeTest() {
 
-		l.info("lancer la methode mettreAjourEmailByEmployeIdJPQL");
-		l.debug("je vais mettre ajour l'email d'un employe a traver son id");
+		l.info("lancer la methode ajouterEmployeTest");
+		l.debug("je vais ajouter un employe");
 		Employe employe = new Employe("hanini", "habib", "habhnini@gmail.com",
 				"123ingenieur", true, Role.INGENIEUR);
-		int employeId = employeControl.ajouterEmploye(employe);
-		l.info(employeId);
-		Assert.assertNotNull(employeControl.getEmployePrenomById(employeId));
-		employeRepository.mettreAjourEmailByEmployeIdJPQL("raed@gmail.com", employeId);
-		l.debug("je viens de mettre ajour l'email d'un employe a traver son id");
-		l.info("fin de  la methode  mettreAjourEmailByEmployeIdJPQL");
+		int employeId = employeController.ajouterEmploye(employe);
+		l.debug("je vais afficher un employe en fonction de l'id");
+		Assert.assertNotNull(employeController.getEmployePrenomById(employeId));
+		l.debug("je viens d'afficher l'entreprise que je viens d'ajouter");
+		l.info("fin de  la methode  ajouterEmployeTest");
+	
 
 	}
+	
+	@Transactional
+	@Test
+	void ajouterEntrepriseTest() {
+		l.info("lancer la methode ajouterEntrepriseTest");
+		l.debug("je vais ajouter une entreprise ");
+		Entreprise entreprise = new Entreprise("It","test");
+		int entrepriseId = entrepriseController.ajouterEntreprise(entreprise);
+		Assert.assertNotNull(entrepriseController.getEntrepriseById(entrepriseId));
+		l.debug("je viens d'afficher l'entreprise que je viens d'ajouter");
+		l.info("fin de la methode ajouterEntrepriseTest");
+	}
+	
+	@Transactional
+	@Test
+	void ajouterDepartementetaffeterTest() {
+		l.info("lancer la methode ajouterEntrepriseTest");
+		l.debug("je vais mettre ajour l'email d'un employe a traver son id");
+		Entreprise entreprise = new Entreprise("It","test");
+		int entrepriseId = entrepriseController.ajouterEntreprise(entreprise);
+		Assert.assertNotNull(entrepriseController.getAllDepartementsNamesByEntreprise(entrepriseId));
+		l.debug("je viens d'afficher l'entreprise que je viens d'ajouter");	
+		l.info("fin de la methode ajouterEntrepriseTest");
+	}
+	
 }
