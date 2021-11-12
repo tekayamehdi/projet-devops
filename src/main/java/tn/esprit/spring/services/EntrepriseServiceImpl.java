@@ -84,7 +84,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	
 	public List<String> getAllDepartementsNamesByEntreprise(int entrepriseId) {
 		try {
-		l.info("lancer la methode getAllDepartmentsNamesByEntreprise");
+		l.info("lancer la methode get AllDepartmentNamesByEntreprise");
 		l.debug("lancer la recherche de l entreprise par id");
 		Optional<Entreprise> value = entrepriseRepoistory.findById(entrepriseId);
 		if (value.isPresent()) 
@@ -161,6 +161,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 			
 		l.debug("je viens de trouver l'entreprise par id"+ent);
 		l.info("fin de la methode get entreprise by id");
+		l.info("hello world");
 		 return ent;
 		}}
 		
